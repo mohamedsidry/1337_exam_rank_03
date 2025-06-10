@@ -31,10 +31,7 @@ int match_char(FILE *f, int c)
 
     _char = fgetc(f);
     if (_char == c)
-    {
-        ungetc(_char, f);
         return (1);
-    }
     ungetc(_char, f);
     return (0);
 }
@@ -73,13 +70,13 @@ int scan_int(FILE *f, va_list ap)
     sign = 1;
     match = 0;
 
-    while (match_char(f, '-') || match_char(f, '+'))
+    _char = fgetc(f);
+    while (_char == '-' || _char == '+')
     {
-        if (match_char(f, '-'))
+        if (_char == '-')
             sign *= -1;
         _char = fgetc(f);
     }
-    _char = fgetc(f);
     while (_char != EOF && isdigit(_char))
     {
         number = number * 10 + (_char - '0');
